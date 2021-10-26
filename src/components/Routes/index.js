@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { ProductList } from "../ProductList";
 
 const ROUTES = [
     { path: "/", key: "ROOT", exact: true, component: () => <h1>Log in</h1> },
@@ -22,6 +23,12 @@ const ROUTES = [
             },
         ],
     },
+    {
+        path: "/products",
+        key: "PRODUCTS",
+        exact: true,
+        component: ProductList,
+    }
 ];
 
 function RouteWithSubRoutes(route) {
