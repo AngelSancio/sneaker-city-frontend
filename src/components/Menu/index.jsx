@@ -1,17 +1,21 @@
+import { faShoePrints } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import './Menu.css';
+import { useLocation } from 'react-router-dom';
 
 /**
      * Render a single route as a list item link to the config's pathname
      */
- function SingleRoute(props) {
-     const { route } = props;
+function SingleRoute(props) {
+    const location = useLocation();
+
+    const { route } = props;
     return (
-        <li key={route.key}>
-            <Link to={route.path}>
-                {route.key} ({route.path})
-            </Link>
-        </li>
+        <Link key={route.key} to={route.path} className={location.pathname === route.path ? 'active' : ''  }>
+            {route.key}
+        </Link>
     );
 }
 
@@ -19,28 +23,36 @@ import { Link } from "react-router-dom";
  * Render a nested hierarchy of route configs with unknown depth/breadth
  */
 function Menu(props) {
-    console.log(props)
     const { routes } = props;
     
 
     // loop through the array of routes and generate an unordered list
     return (
-        <ul>
-            {routes.map(route => {
-                // if this route has sub-routes, then show the ROOT as a list item and recursively render a nested list of route links
-                if (route.routes) {
-                    return (
-                        <React.Fragment key={route.key}>
-                            <SingleRoute route={route} />
-                            <Menu routes={route.routes} />
-                        </React.Fragment>
-                    );
-                }
+        <div className={'header'}>
+            <div className={'logo'}>
+                <FontAwesomeIcon icon={ faShoePrints }></FontAwesomeIcon>
+                <h1>Sneaker City</h1>
+            </div>
+            <div className={'menu'}>
+                {routes.map(route => {
+                    // if this route has sub-routes, then show the ROOT as a list item and recursively render a nested list of route links
+                    if (route.routes) {
+                        return (
+                            <React.Fragment key={route.key}>
+                                <SingleRoute route={route} />
+                                <Menu routes={route.routes} />
+                            </React.Fragment>
+                        );
+                    }
 
-                // no nested routes, so just render a single route
-                return <SingleRoute key={route.key} route={route} />;
-            })}
-        </ul>
+                    return (
+                        <div className={'menu-link' } key={route.key}>
+                            <SingleRoute route={route} />
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
     );
 }
 

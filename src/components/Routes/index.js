@@ -1,31 +1,13 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ProductList } from "../ProductList";
+import { Home } from "../Home";
 
 const ROUTES = [
-    { path: "/", key: "ROOT", exact: true, component: () => <h1>Log in</h1> },
-    {
-        path: "/app",
-        key: "APP",
-        component: RenderRoutes, // here's the update
-        routes: [
-            {
-                path: "/app",
-                key: "APP_ROOT",
-                exact: true,
-                component: () => <h1>App Index</h1>,
-            },
-            {
-                path: "/app/page",
-                key: "APP_PAGE",
-                exact: true,
-                component: () => <h1>App Page</h1>,
-            },
-        ],
-    },
+    { path: "/", key: "Home", exact: true, component: Home },
     {
         path: "/products",
-        key: "PRODUCTS",
+        key: "Store",
         exact: true,
         component: ProductList,
     }
