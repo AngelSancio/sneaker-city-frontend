@@ -9,4 +9,4 @@ const http = axios.create({
 });
 
 export const fetchProducts = () =>
-    http.get(`/sneakers/items`);
+    http.get(`/sneakers/products`);
