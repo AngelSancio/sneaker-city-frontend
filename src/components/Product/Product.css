@@ -46,3 +46,6 @@ span.product-details-brand::before {
     color: gray;
     margin-bottom: 2rem;
 }
+.product-details-container {
+    padding-bottom: 1rem;
+}

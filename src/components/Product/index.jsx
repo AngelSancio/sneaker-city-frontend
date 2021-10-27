@@ -5,6 +5,8 @@ import { Button } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Utils } from '../../utils';
 import { addProductToCart } from '../../utils/axios'
+import Alert from '@mui/material/Alert';
+
 
 // Component to show product detail and add to cart
 function Product(props) {
@@ -12,7 +14,7 @@ function Product(props) {
     const [selected, setSelected] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const [errors, setErrors] = useState({})
-
+    const [showAlert, setShowAlert] = useState(false)
 
     useEffect(() => {
         // assing product
@@ -36,8 +38,8 @@ function Product(props) {
             image: product.media.thumbUrl,
         }
 
-        const result = await addProductToCart(options)
-        props.setOpenModal(false);
+        const result = await addProductToCart(options);
+        setShowAlert(true);
         return console.log(result.message)
     }
 
@@ -72,7 +74,7 @@ function Product(props) {
                             limitTags={1}
                             disabled={false}
                             helperText={errors.selected}
-                        />
+                            />
                         <NumericTextField
                             xs={4}
                             typeVariant="subtitle1"
@@ -94,18 +96,19 @@ function Product(props) {
                             disabled={selected !== null ? false : true}
                             value={quantity}
                             onChange={(values) => setQuantity(values.floatValue)}
-                        />
+                            />
                         <Button className={'product-details-cart-action'} size={'small'} startIcon={<AddShoppingCartIcon />} variant="outlined" onClick={handleAddToCart}>
                             <span>Add to cart</span>
                         </Button>
                     </div>
                 </div>
+                { showAlert ? <Alert severity="success" onClose={() => { setShowAlert(false) }}>Added to cart!</Alert> : '' }
             </div>
 
-        )
-    } else {
-        return (
-            <div className={'product-modal'}></div>
+)
+} else {
+    return (
+        <div className={'product-modal'}></div>
         )
     }
 }
