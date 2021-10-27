@@ -1,79 +1,51 @@
-.container {
-    max-width: 1200px;
-    margin: auto;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-}
-.product-list-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5rem;
-    justify-content: center;
-}
-.product-container {
-    min-width: 300px;
-    width: 30%;
-    position: relative;
-}
 .product-modal-img {
-    width: 50%;
-    height: 300px;
-    object-fit: contain;
-    cursor: pointer;
-    transition: .4s;
+    width: 100%;
+    height: auto;
 }
-.product-img:hover {
-    width: 105%;
+.modal-product-details {
+    padding: 1rem 2rem;
 }
-.product-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.product-name {
-    font-size: 12px;
-    color: #5c5c5c;
-    cursor: pointer;
-}
-.product-price {
+.product-details-name {
     font-size: 18px;
-    font-weight: bold;
-}
-.product-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.product-cart-action {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    background: white;
-    border: 1px solid #ff5f5f;
-    color: #ff5f5f;
-    padding: 2px 10px;
-    font-size: 14px;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: 0.3s;
+.product-details-price {
+    font-size: 20px;
+    font-weight: 500;
 }
-.product-cart-action:hover {
-    background-color: #ff5f5f;
-    color: white;
+.product-details-cart-action {
+    border-color: #ff5f5f !important;
+    color: #ff5f5f !important;
+    border-radius: 40px !important;
+    flex: 1 1 200px !important;
+    height: 40px !important;
+    margin-left: 10px !important;
 }
-.product-modal {
+.product-details-cart-action:hover {
+    background-color: #ff5f5f !important;
+    color: white !important;
+}
+
+span.product-details-brand {
+    margin-left: 20px;
+    font-weight: bold;
+    position: relative;
+}
+span.product-details-brand::before {
+    content: "";
+    width: 6px;
+    border-radius: 5px;
+    height: 6px;
+    background: #ff5f5f;
     position: absolute;
-    background: white;
-    padding: 20px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    width: 70vw;
-    height: 70vh;
-    overflow-y: scroll;
+    left: -12px;
+    top: 8px;
+}
+.product-details-release-date {
+    color: gray;
+    margin-bottom: 2rem;
+}
+.product-details-stock {
+    margin: 0 2rem 0 10px;
+    min-width: 120px;
 }

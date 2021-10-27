@@ -13,7 +13,7 @@ code {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #ff3c3c;
+  background: #ff5f5f;
   border-radius: 8px
 }
 *::-webkit-scrollbar-track {
@@ -22,4 +22,26 @@ code {
 }
 *::-webkit-scrollbar {
   width: 8px;
+}
+
+.mt-3 {
+  margin-top: 1rem;
+}
+.d-flex {
+  display: flex;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-end {
+  justify-content: flex-end;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.primary-text-color {
+  color: #ff5f5f;
+}
+.primary-bg-color {
+  background: #ff5f5f;
 }

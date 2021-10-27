@@ -10,6 +10,9 @@ function App() {
             <div className={'page-container'}>
                 <RenderRoutes routes={ROUTES} />
             </div>
+            <div className={'footer'}>
+                This page has been made with test purposes
+            </div>
         </div>
     );
 }

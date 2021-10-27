@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { fetchProducts } from '../../utils/axios';
 import './ProductList.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {
     Pagination,
     Stack,
     Modal,
-    Button
+    Button,
+    IconButton,
 } from '@mui/material';
-import { Product } from '../Product'
-
+import { Product } from '../Product';
+import { Utils } from '../../utils';
 
 function RenderProduct(props)  {
     const { activePage, productsPerPage, products, handleModal } = props;
@@ -18,14 +19,16 @@ function RenderProduct(props)  {
     const renderedProducts = products.slice( activePage * productsPerPage - productsPerPage, activePage * productsPerPage ).map((product) => {
         return(
             <div key={ product.id } className={'product-container'}>
-                <img alt={product.shoe} src={product.media.thumbUrl} className={'product-img'} onClick={() => handleModal(product, true)}></img>
+                <img alt={product.shoe} src={product.media.smallImageUrl} className={'product-img'} onClick={() => handleModal(product, true)}></img>
                 <div className={'product-details'}>
-                    <div className={'product-name'}>{product.shoe}</div>
+                    <div className={'product-name'}>{product.shoe} <span className={'product-brand'}>{product.brand}</span></div>
+                </div>
+                <div className={'product-release-date'}>
+                    Released: {Utils.formatDate(product.releaseDate)}
                 </div>
                 <div className={'product-actions'}>
-                    <div className={'product-price'}>${product.retailPrice}</div>
-                    <Button className={'product-cart-action'} onClick={() => handleModal(product, true)}>
-                        <FontAwesomeIcon icon={faCartPlus} />
+                    <div className={'product-price'}>{Utils.formatPrice(product.retailPrice)}</div>
+                    <Button className={'product-cart-action'} size={'small'} startIcon={ <AddShoppingCartIcon /> } variant="outlined" onClick={() => handleModal(product, true)}>
                         <span>Add to cart</span>
                     </Button>
                 </div>
@@ -43,9 +46,18 @@ function ProductModal(props) {
             open={openModal}
             onClose={() => setOpenModal(false)} 
         >
-            <Product
-                product={product}
-            />
+            <div className={'product-modal'}>
+                <div className={'product-modal-backdrop'} onClick={ () => setOpenModal(false) }>
+                </div>
+                <div className={'product-modal-content'}>
+                        <IconButton aria-label="close" size='small' className={'product-modal-close'}  onClick={ () => setOpenModal(false) }>
+                            <HighlightOffIcon />
+                        </IconButton>
+                        <Product
+                            product={product}
+                        />
+                </div>
+            </div>
         </Modal>
     )
 }

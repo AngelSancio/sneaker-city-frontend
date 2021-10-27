@@ -10,17 +10,17 @@ import { withStyles } from '@mui/styles';
 const StyledTextField = withStyles({
     root: {
         '& label.Mui-focused': {
-            color: '#4caf50',
+            color: '#ff5f5f',
         },
         '& .MuiOutlinedInput-root': {
             '&:hover fieldset': {
-                color: '#4caf50',
-                borderColor: '#4caf50',
+                color: '#ff5f5f',
+                borderColor: '#ff5f5f',
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#4caf50',
+                borderColor: '#ff5f5f',
             },
-        },
+        }
     },
 })(TextField);
 
@@ -28,13 +28,8 @@ function AutocompleteField(props) {
 
     return (
         <Grid item container={props.container} xs={props.xs} className={props.containerClass}>
-            {
-                props.fieldLabel ?
-                    <Typography variant={props.typeVariant} className={props.typeClass}>
-                        {props.fieldLabel}
-                    </Typography> : ''
-            }
             <Autocomplete
+                size={'small'}
                 className={props.fieldClass}
                 id={props.fieldID}
                 multiple={props.multiple}
@@ -54,7 +49,6 @@ function AutocompleteField(props) {
                             {...params}
                             label={props.fieldInnerLabel}
                             variant={props.fieldVariant}
-                            margin="dense"
                             error={props.error}
                             helperText={props.helperText}
                             disabled={props.disabled}
