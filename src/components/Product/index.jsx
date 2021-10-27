@@ -17,6 +17,7 @@ function Product(props) {
     useEffect(() => {
         // assing product
         setProduct(props.product);
+        setSelected(props.product.size[0])
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleAddToCart = async () => {
@@ -36,7 +37,7 @@ function Product(props) {
         }
 
         const result = await addProductToCart(options)
-
+        props.setOpenModal(false);
         return console.log(result.message)
     }
 
@@ -53,13 +54,15 @@ function Product(props) {
                         <div className={'product-details-price primary-text-color'}>${product.retailPrice}</div>
                     </div>
                     <div className={'product-details-release-date'}>Released: {Utils.formatDate(product.releaseDate)}</div>
-                    <div className={'d-flex align-items-center mt-3'}>
+                        <div className={'product-details-stock'}>{selected !== null ? 'Stock: ' + selected.stock : ''}</div>
+                    <div className={'d-flex align-items-start mt-3 gap-5'}>
                         <AutocompleteField
                             xs={4}
                             fieldLabel="Size"
                             fieldID="size"
                             // fieldInnerLabel="Select the size"
                             fieldVariant="outlined"
+                            typeVariant="small"
                             disableClearable={false}
                             value={selected}
                             handleChange={(e, value) => setSelected(value)}
@@ -70,15 +73,15 @@ function Product(props) {
                             disabled={false}
                             helperText={errors.selected}
                         />
-                        <div className={'product-details-stock'}>Stock: {selected !== null ? selected.stock : 'Agotado'}</div>
                         <NumericTextField
                             xs={4}
                             typeVariant="subtitle1"
-                            typeClass="field-label"
+                            // typeClass="field-label"
                             fieldLabel="Quantity"
                             fieldID="quantity"
                             // margin='dense'
                             fieldVariant="outlined"
+                            typeVariant="small"
                             fullWidth
                             isAllowed={(values) => {
                                 const { floatValue } = values

@@ -20,6 +20,7 @@
     flex: 1 1 200px !important;
     height: 40px !important;
     margin-left: 10px !important;
+    margin-top: 20px !important;
 }
 .product-details-cart-action:hover {
     background-color: #ff5f5f !important;
@@ -44,8 +45,4 @@ span.product-details-brand::before {
 .product-details-release-date {
     color: gray;
     margin-bottom: 2rem;
-}
-.product-details-stock {
-    margin: 0 2rem 0 10px;
-    min-width: 120px;
 }

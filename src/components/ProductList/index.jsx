@@ -57,6 +57,7 @@ function ProductModal(props) {
                         </IconButton>
                         <Product
                             product={product}
+                            setOpenModal={setOpenModal}
                         />
                 </div>
             </div>

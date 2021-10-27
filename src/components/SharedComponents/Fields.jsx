@@ -42,7 +42,6 @@ function AutocompleteField(props) {
                 value={props.value}
                 required={props.required}
                 getOptionLabel={props.getOptionLabel}
-                getOptionSelected={props.getOptionSelected}
                 onChange={props.handleChange}
                 disableCloseOnSelect={props.multiple ? true : false}
                 disableClearable={props.disableClearable}

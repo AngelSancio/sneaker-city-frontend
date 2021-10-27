@@ -30,6 +30,12 @@ code {
 .d-flex {
   display: flex;
 }
+.gap-5 {
+  gap: 5px;
+}
+.align-items-start {
+  align-items: flex-start;
+}
 .align-items-center {
   align-items: center;
 }
