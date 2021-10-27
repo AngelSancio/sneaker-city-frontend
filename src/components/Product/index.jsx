@@ -33,9 +33,10 @@ function Product(props) {
         const options = {
             shoe: product.shoe,
             retailPrice: product.retailPrice,
-            size: selected.size,
+            size: selected.number,
             quantity: quantity,
-            productId: product.id
+            productId: product.id,
+            image: product.media.thumbUrl,
         }
 
         const result = await addProductToCart(options)

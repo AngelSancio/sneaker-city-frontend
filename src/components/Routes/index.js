@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { ProductList } from "../ProductList";
 import { Home } from "../Home";
+import { Cart } from "../Cart";
 
 const ROUTES = [
     { path: "/", key: "Home", exact: true, component: Home },
@@ -10,6 +11,12 @@ const ROUTES = [
         key: "Store",
         exact: true,
         component: ProductList,
+    },
+    {
+        path: "/cart",
+        key: "Cart",
+        exact: true,
+        component: Cart,
     }
 ];
 

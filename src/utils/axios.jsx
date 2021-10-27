@@ -24,4 +24,7 @@ export const updateProductInCart = (options) =>
     http.put(`/cart/`, options);
 
 export const deleteProductFromCart = (productId) =>
-    http.delete(`/cart/`, {productId});
+    http.delete(`/cart/product/`, {productId});
+
+export const deleteCart = () =>
+    http.delete(`/cart/`);
