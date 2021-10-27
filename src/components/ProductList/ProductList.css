@@ -94,6 +94,8 @@
     display: flex;
     flex-direction: column;
     z-index: 120;
+    overflow-y: auto;
+    margin: 1rem;
 }
 .product-modal-close {
     align-self: flex-end;
