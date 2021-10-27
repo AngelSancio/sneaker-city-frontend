@@ -1,10 +1,11 @@
 import {
     Grid,
-    Typography,
     TextField,
     Chip,
-    Autocomplete
+    Autocomplete,
+    Typography,
 } from '@mui/material';
+import NumberFormat from 'react-number-format';
 import { withStyles } from '@mui/styles';
 
 const StyledTextField = withStyles({
@@ -28,6 +29,9 @@ function AutocompleteField(props) {
 
     return (
         <Grid item container={props.container} xs={props.xs} className={props.containerClass}>
+            <Typography variant={props.typeVariant} className={props.typeClass}>
+                {props.fieldLabel}
+            </Typography>
             <Autocomplete
                 size={'small'}
                 className={props.fieldClass}
@@ -70,4 +74,43 @@ function AutocompleteField(props) {
     );
 }
 
-export { AutocompleteField }
+function NumericTextField(props) {
+
+    return(
+        <Grid item xs={props.xs} className={props.containerClass}>
+            <Typography variant={props.typeVariant} className={props.typeClass}>
+                {props.fieldLabel}
+            </Typography>
+            <NumberFormat
+                size={'small'}
+                customInput={StyledTextField}
+                value={props.value}
+                className={props.fieldClass}
+                variant={props.fieldVariant}
+                readOnly={props.readOnly}
+                disabled={props.disabled}
+                required={props.required}
+                placeholder={props.placeholder}
+                margin={props.margin}
+                thousandSeparator={props.thousandSeparator}
+                decimalScale={props.decimalScale}
+                fixedDecimalScale={props.fixedDecimalScale}
+                fullWidth={props.fullWidth}
+                error={props.error}
+                prefix={props.prefix}
+                suffix={props.suffix}
+                format={props.format}
+                mask={props.mask}
+                allowEmptyFormatting={props.allowEmptyFormatting}
+                inputMode="numeric"
+                allowNegative={false}
+                onValueChange={props.onChange}
+                helperText={props.helperText}
+                isAllowed={props.isAllowed}
+                allowLeadingZeros={props.allowLeadingZeros}
+            />
+        </Grid>
+    );
+}
+
+export { AutocompleteField, NumericTextField }

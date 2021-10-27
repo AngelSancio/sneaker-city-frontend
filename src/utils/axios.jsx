@@ -9,4 +9,19 @@ const http = axios.create({
 });
 
 export const fetchProducts = () =>
-    http.get(`/sneakers/products`);
+    http.get(`/products`);
+
+export const fetchProduct = (productId) =>
+    http.get(`/products/${productId}`);
+
+export const fetchCart = () =>
+    http.get(`/cart`);
+
+export const addProductToCart = (options) =>
+    http.post(`/cart/`, options);
+
+export const updateProductInCart = (options) =>
+    http.put(`/cart/`, options);
+
+export const deleteProductFromCart = (productId) =>
+    http.delete(`/cart/`, {productId});

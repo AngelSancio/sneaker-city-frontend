@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './Product.css';
-import { AutocompleteField } from '../SharedComponents/Fields'
+import { AutocompleteField, NumericTextField } from '../SharedComponents/Fields'
 import { Button } from '@mui/material'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Utils } from '../../utils';
+import { addProductToCart } from '../../utils/axios'
 
 
 function Product(props) {
     const [product, setProduct] = useState({});
     const [selected, setSelected] = useState(null)
+    const [quantity, setQuantity] = useState(1)
     const [errors, setErrors] = useState({})
 
 
@@ -21,14 +23,24 @@ function Product(props) {
         console.log(selected)
     }, [selected])
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         setErrors({});
-        if (selected === null) return setErrors({selected: "This field is empty"});
+        if (selected === null) return setErrors({ selected: "This field is empty" });
         if (selected !== null && selected.stock === 0) {
-            return setErrors({selected: "This size is not in stock"});
+            return setErrors({ selected: "This size is not in stock" });
         }
-        
-        return console.log("Agregado al carrito!!!")
+
+        const options = {
+            shoe: product.shoe,
+            retailPrice: product.retailPrice,
+            size: selected.size,
+            quantity: quantity,
+            productId: product.id
+        }
+
+        const result = await addProductToCart(options)
+
+        return console.log(result.message)
     }
 
     if (product.media) {
@@ -43,13 +55,13 @@ function Product(props) {
                         </div>
                         <div className={'product-details-price primary-text-color'}>${product.retailPrice}</div>
                     </div>
-                    <div className={'product-details-release-date'}>Released: { Utils.formatDate(product.releaseDate) }</div>
+                    <div className={'product-details-release-date'}>Released: {Utils.formatDate(product.releaseDate)}</div>
                     <div className={'d-flex align-items-center mt-3'}>
                         <AutocompleteField
                             xs={4}
-                            fieldLabel="Select the size"
+                            fieldLabel="Size"
                             fieldID="size"
-                            fieldInnerLabel="Select the size"
+                            // fieldInnerLabel="Select the size"
                             fieldVariant="outlined"
                             disableClearable={false}
                             value={selected}
@@ -62,14 +74,34 @@ function Product(props) {
                             helperText={errors.selected}
                         />
                         <div className={'product-details-stock'}>Stock: {selected !== null ? selected.stock : 'Agotado'}</div>
-                        
-                        <Button className={'product-details-cart-action'} size={'small'} startIcon={ <AddShoppingCartIcon /> } variant="outlined" onClick={handleAddToCart}>
+                        <NumericTextField
+                            xs={4}
+                            typeVariant="subtitle1"
+                            typeClass="field-label"
+                            fieldLabel="Quantity"
+                            fieldID="quantity"
+                            // margin='dense'
+                            fieldVariant="outlined"
+                            fullWidth
+                            isAllowed={(values) => {
+                                const { floatValue } = values
+                                return floatValue <= selected.stock
+                            }}
+                            allowLeadingZeros={false}
+                            thousandSeparator={true}
+                            decimalScale={0}
+                            fixedDecimalScale={true}
+                            disabled={selected !== null ? false : true}
+                            value={quantity}
+                            onChange={(values) => setQuantity(values.floatValue)}
+                        />
+                        <Button className={'product-details-cart-action'} size={'small'} startIcon={<AddShoppingCartIcon />} variant="outlined" onClick={handleAddToCart}>
                             <span>Add to cart</span>
                         </Button>
                     </div>
                 </div>
             </div>
-            
+
         )
     } else {
         return (
