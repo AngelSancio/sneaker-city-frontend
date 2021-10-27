@@ -36,11 +36,11 @@ function Product(props) {
             quantity: quantity,
             productId: product.id,
             image: product.media.thumbUrl,
+            stock: selected.stock,
         }
 
-        const result = await addProductToCart(options);
+        await addProductToCart(options);
         setShowAlert(true);
-        return console.log(result.message)
     }
 
     if (product.media) {
@@ -77,13 +77,12 @@ function Product(props) {
                             />
                         <NumericTextField
                             xs={4}
-                            typeVariant="subtitle1"
+                            typeVariant="small"
                             // typeClass="field-label"
                             fieldLabel="Quantity"
                             fieldID="quantity"
                             // margin='dense'
                             fieldVariant="outlined"
-                            typeVariant="small"
                             fullWidth
                             isAllowed={(values) => {
                                 const { floatValue } = values
