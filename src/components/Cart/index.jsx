@@ -15,7 +15,8 @@ import Alert from '@mui/material/Alert';
 function Cart() {
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
-    const [showAlert, setShowAlert] = useState(false)
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertDetail, setAlertDetail] = useState({ severity: "", message: "" })
 
     useEffect(() => {
         getCart();
@@ -23,8 +24,13 @@ function Cart() {
 
 
     const updateProduct = async (product) => {
-        await updateProductInCart(product);
+        let res = await updateProductInCart(product);
         getCart();
+        const option = {
+            severity: res.status === 200 ? "success" : "error",
+            message: res.data.message,
+        }
+        handleAlert(option)
     }
 
     const addItem = (product) => {
@@ -42,12 +48,26 @@ function Cart() {
     }
 
     const deleteProduct = async (productId) => {
-        await deleteProductFromCart(productId);
+        let res =await deleteProductFromCart(productId);
         getCart();
+        const option = {
+            severity: res.status === 200 ? "success" : "error",
+            message: res.data.message,
+        }
+        handleAlert(option)
     }
     const deleteAllCart = async () => {
-        await deleteCart();
+        let res = await deleteCart();
         getCart();
+        const option = {
+            severity: res.status === 200 ? "success" : "error",
+            message: res.data.message,
+        }
+        handleAlert(option)
+    }
+
+    const handleAlert = (data) => {
+        setAlertDetail(data);
         setShowAlert(true)
     }
 
@@ -134,9 +154,9 @@ function Cart() {
                         </div>
                     </div>
                     <Button size='large' variant='contained' className={'checkout-btn'} onClick={() => deleteAllCart()} disabled={cart.length === 0}>Checkout</Button>
+                    {showAlert ? <Alert severity={alertDetail.severity} onClose={() => { setShowAlert(false) }}>{alertDetail.message}</Alert> : ''}
                 </aside>
             </div>
-            { showAlert ? <Alert severity="success" onClose={() => { setShowAlert(false) }}>Checked Out!</Alert> : '' }
         </div>
     )
 }
