@@ -13,6 +13,7 @@ import {
 import { Product } from '../Product';
 import { Utils } from '../../utils';
 
+// Component to show elements of product list
 function RenderProduct(props)  {
     const { activePage, productsPerPage, products, handleModal } = props;
 
@@ -38,6 +39,7 @@ function RenderProduct(props)  {
     return renderedProducts;
 }
 
+// Modal component to show product details and add to cart
 function ProductModal(props) {
     const { product, setOpenModal, openModal } = props;
 
@@ -62,6 +64,7 @@ function ProductModal(props) {
     )
 }
 
+// Component to show the list of products
 function ProductList() {
     const [products, setProducts] = useState([]);
     const [modalData, setModalData] = useState({});
@@ -73,16 +76,18 @@ function ProductList() {
         getProducts();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    // get products available
     const getProducts = useCallback(async () => {
         const res = await fetchProducts();
         setProducts(res.data.result);
-        console.log(res.data.result);
     },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
+    // handle the actual page for pagination
     const handleChange = (event, value) => {
         setPage(value);
     };
 
+    // handle open modal and the information on it
     const handleModal = (product, modal) => {
         setModalData(product);
         setOpenModal(modal)
