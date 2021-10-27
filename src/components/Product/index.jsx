@@ -6,7 +6,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Utils } from '../../utils';
 import { addProductToCart } from '../../utils/axios'
 
-
+// Component to show product detail and add to cart
 function Product(props) {
     const [product, setProduct] = useState({});
     const [selected, setSelected] = useState(null)
@@ -15,13 +15,9 @@ function Product(props) {
 
 
     useEffect(() => {
+        // assing product
         setProduct(props.product);
-        console.log(props)
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-    useEffect(() => {
-        console.log(selected)
-    }, [selected])
 
     const handleAddToCart = async () => {
         setErrors({});
